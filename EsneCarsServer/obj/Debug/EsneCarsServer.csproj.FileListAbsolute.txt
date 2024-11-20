@@ -1,0 +1,16 @@
+C:\Users\Alumno\Downloads\EsneCarsServer\bin\Debug\EsneCarsServer.exe.config
+C:\Users\Alumno\Downloads\EsneCarsServer\bin\Debug\EsneCarsServer.exe
+C:\Users\Alumno\Downloads\EsneCarsServer\bin\Debug\EsneCarsServer.pdb
+C:\Users\Alumno\Downloads\EsneCarsServer\obj\Debug\EsneCarsServer.csproj.AssemblyReference.cache
+C:\Users\Alumno\Downloads\EsneCarsServer\obj\Debug\EsneCarsServer.csproj.SuggestedBindingRedirects.cache
+C:\Users\Alumno\Downloads\EsneCarsServer\obj\Debug\EsneCarsServer.csproj.CoreCompileInputs.cache
+C:\Users\Alumno\Downloads\EsneCarsServer\obj\Debug\EsneCarsServer.exe
+C:\Users\Alumno\Downloads\EsneCarsServer\obj\Debug\EsneCarsServer.pdb
+C:\Users\Alumno\Desktop\EsneCarsServer\bin\Debug\EsneCarsServer.exe.config
+C:\Users\Alumno\Desktop\EsneCarsServer\bin\Debug\EsneCarsServer.exe
+C:\Users\Alumno\Desktop\EsneCarsServer\bin\Debug\EsneCarsServer.pdb
+C:\Users\Alumno\Desktop\EsneCarsServer\obj\Debug\EsneCarsServer.csproj.AssemblyReference.cache
+C:\Users\Alumno\Desktop\EsneCarsServer\obj\Debug\EsneCarsServer.csproj.SuggestedBindingRedirects.cache
+C:\Users\Alumno\Desktop\EsneCarsServer\obj\Debug\EsneCarsServer.csproj.CoreCompileInputs.cache
+C:\Users\Alumno\Desktop\EsneCarsServer\obj\Debug\EsneCarsServer.exe
+C:\Users\Alumno\Desktop\EsneCarsServer\obj\Debug\EsneCarsServer.pdb

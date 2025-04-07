@@ -99,60 +99,56 @@ public class SInglePlayerManager : MonoBehaviour
 
     public void StartGame()
     {
-        // Set PlayerCar
-        playerCar = carSelector.currentCar;
-        playerCar.AddComponent<PlayerController>();
-
-        // Change canvas to Overlay
+        // Cambiar canvas a Overlay
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
 
-        // Look to the player with the camera.
-        cameraController.ChangeTarget(playerCar.transform, cameraFollowSpeed, cameraRotationSpeed, cameraOffset);
-
-        // Set laps
+        // Establecer vueltas
         totalLaps = (int)lapsSlider.value;
-        laps.text = "Laps  " + playerCar.GetComponent<CarController>().lap.ToString() + " / " + totalLaps;
 
-        // Set oponents
+        // Establecer oponentes
         oponents = (int)oponentsSlider.value;
         List<GameObject> availableCars = new List<GameObject>(carSelector.cars);
-        availableCars.Remove(playerCar);
+        availableCars.Remove(carSelector.currentCar); // evitar duplicar coche del jugador
 
-        for(int i = 0; i < oponents; i++)
+        // Instanciar coche del jugador en la última posición de la parrilla
+        Vector3 playerPos = gridPositions[oponents].position + new Vector3(0f, 0f, -1.7f);
+        Quaternion playerRot = Quaternion.LookRotation(gridPositions[oponents].forward);
+        playerCar = Instantiate(carSelector.currentCar, playerPos, playerRot);
+        playerCar.SetActive(true);
+        playerCar.AddComponent<PlayerController>();
+
+        // Posicionar cámara en el coche del jugador
+        cameraController.ChangeTarget(playerCar.transform, cameraFollowSpeed, cameraRotationSpeed, cameraOffset);
+
+        // Mostrar vueltas iniciales
+        laps.text = "Laps  " + playerCar.GetComponent<CarController>().lap.ToString() + " / " + totalLaps;
+
+        // Instanciar oponentes
+        for (int i = 0; i < oponents; i++)
         {
-            int randomCar = UnityEngine.Random.Range(0, availableCars.Count);
-            GameObject selectedCar = availableCars[randomCar];
-            selectedCar.AddComponent<AIController>();
-            selectedCars.Add(selectedCar);
-            availableCars.Remove(selectedCar);
+            int randomIndex = UnityEngine.Random.Range(0, availableCars.Count);
+            GameObject selectedCarPrefab = availableCars[randomIndex];
+
+            Vector3 opponentPos = gridPositions[i].position + new Vector3(0f, 0f, -1.7f);
+            Quaternion opponentRot = Quaternion.LookRotation(gridPositions[i].forward);
+
+            GameObject opponentCar = Instantiate(selectedCarPrefab, opponentPos, opponentRot);
+            opponentCar.SetActive(true);
+            opponentCar.AddComponent<AIController>();
+
+            selectedCars.Add(opponentCar);
+            availableCars.RemoveAt(randomIndex);
         }
 
-        // Set grid positions
-
-        // Player
-        playerCar.transform.position = new Vector3(gridPositions[oponents].transform.position.x, 
-                                                   gridPositions[oponents].transform.position.y, 
-                                                   gridPositions[oponents].transform.position.z - 1.7f);
-
-        playerCar.transform.forward = gridPositions[oponents].transform.forward;
+        // Mostrar posición inicial del jugador
         positions.text = "Pos  " + (oponents + 1) + " / " + (oponents + 1);
 
-        // Oponents
-        for(int i = 0; i < oponents; i++)
-        {
-            selectedCars[i].SetActive(true);
-            selectedCars[i].transform.position = new Vector3(gridPositions[i].transform.position.x,
-                                                             gridPositions[i].transform.position.y,
-                                                             gridPositions[i].transform.position.z - 1.7f);
-
-            selectedCars[i].transform.forward = gridPositions[i].transform.forward;
-        }
-
-        // Add all cars avaible (player and AI)
-        foreach(GameObject car in selectedCars) { carsInRace.Add(car); }
+        // Agregar todos los coches a la lista de la carrera
+        foreach (GameObject car in selectedCars)
+            carsInRace.Add(car);
         carsInRace.Add(playerCar);
 
-        // Start count
+        // Iniciar cuenta regresiva
         StartCoroutine(CountDownStart(carsInRace));
     }
 
